@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\AuthController;
 use App\Http\Controllers\ObjectController;
+use App\Http\Controllers\CustomerObjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +35,11 @@ Route::controller(ObjectController::class)->group(function () {
 
 
 // 測試
-// Route::middleware('auth:sanctum')->group(function () {
-// });
+Route::middleware('auth:sanctum')->group(function () {
+  Route::controller(CustomerObjectController::class)->group(function () {
+    Route::get('/customerObject', 'index');
+  });
+});
 
 Route::middleware('auth:sanctum')->get('/obj', function (Request $request) {
   return response()->json(
