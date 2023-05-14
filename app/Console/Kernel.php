@@ -7,6 +7,11 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    // 定義應用程式的 Artisan 指令
+    protected $commands = [
+        \App\Console\Commands\SyncScheduleTtsToGoogle::class,
+    ];
+
     /**
      * Define the application's command schedule.
      *
@@ -15,7 +20,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // 每分鐘執行 Artisan 命令 syncSchedule:TtsToGoogle
+        $schedule->command('syncSchedule:TtsToGoogle')->everyTwoHours()->runInBackground();
     }
 
     /**
@@ -25,7 +31,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
