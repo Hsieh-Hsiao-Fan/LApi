@@ -23,7 +23,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
   return $request->user();
 });
-
+Route::get('/gg', function () {
+  return 123;
+});
 
 // 物件相關
 Route::controller(ObjectController::class)->group(function () {
